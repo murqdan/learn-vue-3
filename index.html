@@ -25,7 +25,12 @@
       };
 
       // vue app object
-      Vue.createApp(App).mount('#app');
+      const vm = Vue.createApp(App).mount('#app');
+
+      // text will change after 3 seconds
+      setTimeout(() => {
+        vm.message = 'Wow reactive huh?';
+      }, 3000);
     </script>
   </body>
 </html>
