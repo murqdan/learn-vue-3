@@ -15,6 +15,7 @@
       <p>{{ text }}</p>
       <p>{{ other_variable }}</p>
       <p>{{ children.three }}</p>
+      <p>{{ `Discount 10% : ${total-(total/10)}` }}</p>
     </div>
 
     <script>
@@ -30,6 +31,7 @@
               two: 'Faqih',
               three: 'Syamil',
             },
+            total: 50000,
           };
         },
       };
