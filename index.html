@@ -12,6 +12,9 @@
     <div id="app">
       <!-- template vue -->
       <h1>{{ message }}</h1>
+      <p>{{ text }}</p>
+      <p>{{ other_variable }}</p>
+      <p>{{ children.three }}</p>
     </div>
 
     <script>
@@ -20,6 +23,13 @@
         data() {
           return {
             message: 'Hello, World!_',
+            text: 'Indonesian Morning Spirit!',
+            other_variable: 'other value',
+            children: {
+              one: 'Ammar',
+              two: 'Faqih',
+              three: 'Syamil',
+            },
           };
         },
       };
@@ -29,7 +39,7 @@
 
       // text will change after 3 seconds
       setTimeout(() => {
-        vm.message = 'Wow reactive huh?';
+        vm.other_variable = 'Wow reactive huh?';
       }, 3000);
     </script>
   </body>
