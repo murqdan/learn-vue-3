@@ -29,6 +29,12 @@
           console.log('created: message = ' + this.message);
           console.log(this.$data);
         },
+        beforeMount() {
+          console.log('before mount: el = ' + this.$el?.textContent);
+        },
+        mounted() {
+          console.log('mounted: el = ' + this.$el.textContent);
+        },
       };
 
       // vue app object
