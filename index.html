@@ -13,25 +13,26 @@
     <div id="app"></div>
 
     <script>
-      // child component
-      const Child = {
+      // component
+      const Hello = {
         data() {
           return {
             message: 'Hello, World!_',
           };
         },
         template: '<h1> {{ message }} </h1>',
-      };
-
-      // main component
-      const Main = {
-        render() {
-          return Vue.h('div', {}, Vue.h(Child));
+        beforeCreate() {
+          console.log('before create: message = ' + this.message);
+          console.log(this.$data);
+        },
+        created() {
+          console.log('created: message = ' + this.message);
+          console.log(this.$data);
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(Main).mount('#app');
+      const vm = Vue.createApp(Hello).mount('#app');
     </script>
   </body>
 </html>
