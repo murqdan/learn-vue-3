@@ -20,9 +20,14 @@
             message: 'Hello, World!_',
           };
         },
-        template: `<h1>
-          {{ message }}
-          </h1>`,
+        // template: "<h1> {{ message }} </h1>",
+        render() {
+          return Vue.h(
+            'h1', // tag HTML
+            {}, // attribute
+            this.message // children or other content or components
+          );
+        },
       };
 
       // vue app object
