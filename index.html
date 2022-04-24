@@ -33,12 +33,20 @@
           console.log('before mount: el = ' + this.$el?.textContent);
         },
         mounted() {
-          console.log('mounted: el = ' + this.$el.textContent);
+          console.log('mounted: el = ' + this.$el?.textContent);
+        },
+        beforeUpdate() {
+          console.log('before update: el = ' + this.$el.textContent);
+        },
+        updated() {
+          console.log('update: el = ' + this.$el.textContent);
         },
       };
 
       // vue app object
       const vm = Vue.createApp(Hello).mount('#app');
+      
+      vm.message = 'Welcome!_'
     </script>
   </body>
 </html>
