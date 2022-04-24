@@ -13,25 +13,25 @@
     <div id="app"></div>
 
     <script>
-      // component
-      const Hello = {
+      // child component
+      const Child = {
         data() {
           return {
             message: 'Hello, World!_',
           };
         },
-        // template: "<h1> {{ message }} </h1>",
+        template: '<h1> {{ message }} </h1>',
+      };
+
+      // main component
+      const Main = {
         render() {
-          return Vue.h(
-            'h1', // tag HTML
-            {}, // attribute
-            this.message // children or other content or components
-          );
+          return Vue.h('div', {}, Vue.h(Child));
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(Hello).mount('#app');
+      const vm = Vue.createApp(Main).mount('#app');
     </script>
   </body>
 </html>
