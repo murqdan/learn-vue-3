@@ -10,41 +10,23 @@
   </head>
   <body>
     <!-- mount point -->
-    <div id="app">
-      <!-- template vue -->
-      <h1 v-bind:class="class_title" v-html="message"></h1>
-      <p>{{ text }}</p>
-      <p>{{ other_variable }}</p>
-      <p>{{ children.three }}</p>
-      <p>{{ `Discount 10% : ${total-(total/10)}` }}</p>
-    </div>
+    <div id="app"></div>
 
     <script>
       // component
-      const App = {
+      const Hello = {
         data() {
           return {
-            message: "<a>Hello, World!_</a>",
-            text: 'Indonesian Morning Spirit!',
-            other_variable: 'other value',
-            children: {
-              one: 'Ammar',
-              two: 'Faqih',
-              three: 'Syamil',
-            },
-            total: 50000,
-            class_title: 'title',
+            message: 'Hello, World!_',
           };
         },
+        template: `<h1>
+          {{ message }}
+          </h1>`,
       };
 
       // vue app object
-      const vm = Vue.createApp(App).mount('#app');
-
-      // text will change after 3 seconds
-      setTimeout(() => {
-        vm.other_variable = 'Wow reactive huh?';
-      }, 3000);
+      const vm = Vue.createApp(Hello).mount('#app');
     </script>
   </body>
 </html>
