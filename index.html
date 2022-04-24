@@ -41,12 +41,22 @@
         updated() {
           console.log('update: el = ' + this.$el.textContent);
         },
+        beforeUnmount() {
+          console.log('before unmount');
+        },
+        unmounted() {
+          console.log('unmounted');
+        },
       };
 
       // vue app object
       const vm = Vue.createApp(Hello).mount('#app');
-      
-      vm.message = 'Welcome!_'
+
+      vm.message = 'Welcome!_';
+
+      setTimeout(() => {
+        Vue.render(null, document.getElementById('app'));
+      }, 1000);
     </script>
   </body>
 </html>
