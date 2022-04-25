@@ -13,33 +13,23 @@
     <div id="app"></div>
 
     <script>
-      function decrement() {
-        vm.counter--;
-      }
-
       // component
-      const Counter = {
-        template: `
-        <div>
-          Current value: {{ counter }}
-          <button onclick="vm.decrement()"> - </button>
-          <button onclick="vm.increment()"> + </button>
-        </div>`,
+      const Stock = {
+        template: `Ready stock: {{ readyStock }}`,
         data() {
           return {
-            counter: 0,
+            stock: 0,
           };
         },
-        methods: {
-          increment() {
-            this.counter++;
+        computed: {
+          readyStock() {
+            return this.stock > 0 ? 'YES' : 'NO';
           },
-          decrement,
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(Counter).mount('#app');
+      const vm = Vue.createApp(Stock).mount('#app');
     </script>
   </body>
 </html>
