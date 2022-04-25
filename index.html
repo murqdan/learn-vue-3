@@ -28,8 +28,17 @@
         },
       };
 
+      const BadComputed = {
+        template: `<div> Current time: {{ now }} </div>`,
+        computed: {
+          now() {
+            return Date.now();
+          },
+        },
+      };
+
       // vue app object
-      const vm = Vue.createApp(Stock).mount('#app');
+      const vm = Vue.createApp(BadComputed).mount('#app');
     </script>
   </body>
 </html>
