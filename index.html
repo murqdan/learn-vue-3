@@ -13,50 +13,33 @@
     <div id="app"></div>
 
     <script>
+      function decrement() {
+        vm.counter--;
+      }
+
       // component
-      const Hello = {
+      const Counter = {
+        template: `
+        <div>
+          Current value: {{ counter }}
+          <button onclick="vm.decrement()"> - </button>
+          <button onclick="vm.increment()"> + </button>
+        </div>`,
         data() {
           return {
-            message: 'Hello, World!_',
+            counter: 0,
           };
         },
-        template: '<h1> {{ message }} </h1>',
-        beforeCreate() {
-          console.log('before create: message = ' + this.message);
-          console.log(this.$data);
-        },
-        created() {
-          console.log('created: message = ' + this.message);
-          console.log(this.$data);
-        },
-        beforeMount() {
-          console.log('before mount: el = ' + this.$el?.textContent);
-        },
-        mounted() {
-          console.log('mounted: el = ' + this.$el?.textContent);
-        },
-        beforeUpdate() {
-          console.log('before update: el = ' + this.$el.textContent);
-        },
-        updated() {
-          console.log('update: el = ' + this.$el.textContent);
-        },
-        beforeUnmount() {
-          console.log('before unmount');
-        },
-        unmounted() {
-          console.log('unmounted');
+        methods: {
+          increment() {
+            this.counter++;
+          },
+          decrement,
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(Hello).mount('#app');
-
-      vm.message = 'Welcome!_';
-
-      setTimeout(() => {
-        Vue.render(null, document.getElementById('app'));
-      }, 1000);
+      const vm = Vue.createApp(Counter).mount('#app');
     </script>
   </body>
 </html>
