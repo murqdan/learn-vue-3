@@ -28,17 +28,26 @@
         },
       };
 
-      const BadComputed = {
+      const GoodComputed = {
         template: `<div> Current time: {{ now }} </div>`,
+        data() {
+          return {
+            timestamp: '',
+          };
+        },
         computed: {
           now() {
-            return Date.now();
+            return this.timestamp;
           },
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(BadComputed).mount('#app');
+      const vm = Vue.createApp(GoodComputed).mount('#app');
+
+      setInterval(() => {
+        (vm.timestamp = Date.now()), 1000;
+      });
     </script>
   </body>
 </html>
