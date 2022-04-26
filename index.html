@@ -17,11 +17,10 @@
       const InputName = {
         template:
         `<div>
-          First name: <input onchange="vm.firstName=this.value"/>
+          Full name: <input onchange="vm.fullName=this.value"/>
           <br/>
-          Last name: <input onchange="vm.lastName=this.value"/>
-          <br/>
-          Full name: {{ fullName }}
+          First name: {{ firstName }} <br/>
+          Last name: {{ lastName }}
         </div>`,
         data() {
           return {
@@ -30,8 +29,16 @@
           };
         },
         computed: {
-          fullName() {
-            return `${this.firstName} ${this.lastName}`;
+          fullName: {
+            get() {
+              return `${this.firstName} ${this.lastName}`;
+            },
+            set(fullName) {
+              const names = fullName.split(' ');
+              const [firstName, ...lastName] = names;
+              this.firstName = firstName;
+              this.lastName = lastName.join(' ');
+            },
           },
         },
       };
