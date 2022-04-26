@@ -14,37 +14,33 @@
 
     <script>
       // component
-      const InputName = {
+      const InputDistance = {
         template:
         `<div>
-          Full name: <input onchange="vm.fullName=this.value"/>
+          Miles : <input id="miles" onchange="vm.miles=this.value"/>
           <br/>
-          First name: {{ firstName }} <br/>
-          Last name: {{ lastName }}
+          Kilometers : <input id="kilometers" onchange="vm.kilometers=this.value"/>
         </div>`,
         data() {
           return {
-            firstName: '',
-            lastName: '',
+            miles: '',
+            kilometers: '',
           };
         },
-        computed: {
-          fullName: {
-            get() {
-              return `${this.firstName} ${this.lastName}`;
-            },
-            set(fullName) {
-              const names = fullName.split(' ');
-              const [firstName, ...lastName] = names;
-              this.firstName = firstName;
-              this.lastName = lastName.join(' ');
-            },
+        watch: {
+          miles(newValue, oldValue) {
+            this.kilometers = newValue * 1.6;
+            document.getElementById('kilometers').value = this.kilometers;
+          },
+          kilometers(newValue, oldValue) {
+            this.miles = newValue > 0 ? newValue / 1.6 : 0;
+            document.getElementById('miles').value = this.miles;
           },
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(InputName).mount('#app');
+      const vm = Vue.createApp(InputDistance).mount('#app');
     </script>
   </body>
 </html>
