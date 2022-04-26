@@ -14,37 +14,30 @@
 
     <script>
       // component
-      const EvenOdd = {
-        template: 
+      const InputName = {
+        template:
         `<div>
-          Methods: {{ checkNum() }}
-          <button onclick="vm.num1++"> + </button>
-          <hr/>
-          Computed: {{ numType }}
-          <button onclick="vm.num2++"> + </button>
+          First name: <input onchange="vm.firstName=this.value"/>
+          <br/>
+          Last name: <input onchange="vm.lastName=this.value"/>
+          <br/>
+          Full name: {{ fullName }}
         </div>`,
         data() {
           return {
-            num1: 0,
-            num2: 0
+            firstName: '',
+            lastName: '',
           };
         },
-        methods: {
-          checkNum() {
-            console.log('methods call');
-            return this.num1 % 2 === 0 ? 'EVEN' : 'ODD';
-          },
-        },
         computed: {
-          numType() {
-            console.log('computed call');
-            return this.num2 % 2 === 0 ? 'EVEN' : 'ODD';
+          fullName() {
+            return `${this.firstName} ${this.lastName}`;
           },
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(EvenOdd).mount('#app');
+      const vm = Vue.createApp(InputName).mount('#app');
     </script>
   </body>
 </html>
