@@ -34,6 +34,8 @@
       <a :href="url" :class="link">Let's go!</a>
       <br />
       <a :[attribute_name]="url">Come on!</a>
+      <br /><br />
+      <div v-for="book in books">{{ book }}</div>
     </div>
 
     <script>
@@ -54,6 +56,12 @@
             url: 'https://tiket.com',
             link: 'text-link',
             attribute_name: 'href',
+            books: [
+              'C++ High Performance',
+              'Mastering Linux Security and Hardening',
+              'Python Programming Blueprints',
+              'Mastering PostgreSQL 10',
+            ],
           };
         },
       };
