@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-img {
+.paradise {
   width: 350px;
   height: 190px;
 }
@@ -18,4 +18,14 @@ img {
 .text-link {
   text-decoration: underline;
   color: blue;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: left;
+  padding-left: 7px;
 }
