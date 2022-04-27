@@ -36,7 +36,7 @@
       <a :[attribute_name]="url">Come on!</a>
       <br /><br />
       <table border="1">
-        <tr v-for="book of expensiveBooks" :key="book.id">
+        <tr v-for="book of sortBooks" :key="book.id">
           <td>
             <img width="100" :src="'images/books/' + book.image"/>
           </td>
@@ -114,6 +114,9 @@
         computed: {
           expensiveBooks() {
             return this.books.filter((book) => book.price >= 100000);
+          },
+          sortBooks() {
+            return this.books.sort((a, b) => a.price - b.price);
           },
         },
       };
