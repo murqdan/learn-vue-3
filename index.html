@@ -48,7 +48,6 @@
           </td>
         </tr>
       </table>
-      <br>
       <ul> 
         <li style='list-style: none' v-for="book of books" :key="book.id">
           {{ book.id }} - {{ book.title }}
@@ -122,6 +121,9 @@
 
       // vue app object
       const vm = Vue.createApp(App).mount('#app');
+
+      vm.books.push({id:103,title: 'Mastering PHP 7'})
+      vm.books.pop()
     </script>
   </body>
 </html>
