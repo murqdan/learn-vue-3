@@ -1,3 +1,15 @@
-.title {
-  color: green;
+#app {
+  text-align: center;
+}
+
+img {
+  width: 350px;
+  height: 190px;
+}
+
+.text-red {
+  color: red;
+}
+.text-bold {
+  font-weight: bold;
 }
