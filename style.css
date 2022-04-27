@@ -10,6 +10,12 @@ img {
 .text-red {
   color: red;
 }
+
 .text-bold {
   font-weight: bold;
+}
+
+.text-link {
+  text-decoration: underline;
+  color: blue;
 }
