@@ -48,6 +48,12 @@
           </td>
         </tr>
       </table>
+      <br>
+      <ul> 
+        <li style='list-style: none' v-for="book of books" :key="book.id">
+          {{ book.id }} - {{ book.title }}
+        </li>
+      </ul> 
     </div>
 
     <script>
