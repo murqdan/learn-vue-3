@@ -10,37 +10,22 @@
   </head>
   <body>
     <!-- mount point -->
-    <div id="app"></div>
+    <div id="app">
+      <h1 v-text="message"></h1>
+    </div>  
 
     <script>
       // component
-      const InputDistance = {
-        template:
-        `<div>
-          Miles : <input id="miles" onchange="vm.miles=this.value"/>
-          <br/>
-          Kilometers : <input id="kilometers" onchange="vm.kilometers=this.value"/>
-        </div>`,
+      const App = {
         data() {
           return {
-            miles: '',
-            kilometers: '',
+            message: 'Hello, World!_',
           };
-        },
-        watch: {
-          miles(newValue, oldValue) {
-            this.kilometers = newValue * 1.6;
-            document.getElementById('kilometers').value = this.kilometers;
-          },
-          kilometers(newValue, oldValue) {
-            this.miles = newValue > 0 ? newValue / 1.6 : 0;
-            document.getElementById('miles').value = this.miles;
-          },
         },
       };
 
       // vue app object
-      const vm = Vue.createApp(InputDistance).mount('#app');
+      const vm = Vue.createApp(App).mount('#app');
     </script>
   </body>
 </html>
