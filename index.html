@@ -122,8 +122,8 @@
       // vue app object
       const vm = Vue.createApp(App).mount('#app');
 
-      vm.books.unshift({ id:103, title: 'Mastering PHP 7' })
-      vm.books.shift()
+      vm.books.splice(2, 0, { id:103, title: 'Mastering PHP 7' });
+      vm.books.splice(2, 1);
     </script>
   </body>
 </html>
