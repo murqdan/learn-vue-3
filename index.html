@@ -12,7 +12,8 @@
     <!-- mount point -->
     <div id="app">
       <h1 v-text="message"></h1>
-    </div>  
+      <p v-html="rawHTML"></p>
+    </div>
 
     <script>
       // component
@@ -20,6 +21,7 @@
         data() {
           return {
             message: 'Hello, World!_',
+            rawHTML: '<strong>Announcement_</strong>',
           };
         },
       };
