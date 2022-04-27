@@ -28,16 +28,26 @@
         <button onclick="vm.displayMessage=!vm.displayMessage">ON/OFF</button>
       </div>
       <br />
-      <img v-bind:src="imageSrc" />
+      <img class='paradise' v-bind:src="imageSrc" />
       <div :class="[red, bold]">And i think to myself_</div>
       <div :class="bold">What a wonderful world!_</div>
       <a :href="url" :class="link">Let's go!</a>
       <br />
       <a :[attribute_name]="url">Come on!</a>
       <br /><br />
-      <div v-for="(book, index) in books">{{ index+1 }}. {{ book }}</div>
-      <br />
-      <div v-for="(value, key, index) in book"> {{ index+1 }}. {{ key }} : {{ value }}</div>
+      <table border=1>
+        <tr v-for="book of books">
+          <td>
+            <img width=100 :src="'images/books/' + book.image" />
+          </td>
+          </td>
+          <td>
+            <template v-for="(value, key) in book">
+              {{ key }} : {{ value }} <br>
+            </template>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <script>
@@ -59,20 +69,47 @@
             link: 'text-link',
             attribute_name: 'href',
             books: [
-              'C++ High Performance',
-              'Mastering Linux Security and Hardening',
-              'Python Programming Blueprints',
-              'Mastering PostgreSQL 10',
+              {
+                id: 99,
+                title: 'C++ High Performance',
+                description:
+                  'Write code that scales across CPU registers, multicore, and machine clusters',
+                authors: 'Viktor Sehr, Björn Andrist',
+                publish_year: 2018,
+                price: 100000,
+                image: 'c++-high-performance.jpg',
+              },
+              {
+                id: 100,
+                title: 'Mastering Linux Security and Hardening',
+                description:
+                  'A comprehensive guide to mastering the art of preventing your Linux system from getting compromised',
+                authors: 'Donald A. Tevault',
+                publish_year: 2018,
+                price: 125000,
+                image: 'mastering-linux-security-and-hardening.png',
+              },
+              {
+                id: 101,
+                title: 'Mastering PostgreSQL 10',
+                description:
+                  'Master the capabilities of PostgreSQL 10 to efficiently manage and maintain your database',
+                authors: 'Hans-Jürgen Schönig',
+                publish_year: 2016,
+                price: 90000,
+                image: 'mastering-postgresql-10.jpg',
+              },
+              {
+                id: 102,
+                title: 'Python Programming Blueprints',
+                description:
+                  'How to build useful, real-world applications in the Python programming language',
+                authors: 'Daniel Furtado, Marcus Pennington',
+                publish_year: 2017,
+                price: 75000,
+                image: 'python-programming-blueprints.jpg',
+              },
             ],
-            book: {
-              id: 99,
-              title: 'C++ High Performance',
-              description:
-                'Write code that scales across CPU registers, multi-core, and machine clusters',
-              authors: 'Viktor Sehr, Björn Andrist',
-              publish_year: 2018,
-              price: 100000,
-            },
           };
         },
       };
