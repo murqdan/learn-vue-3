@@ -28,21 +28,21 @@
         <button onclick="vm.displayMessage=!vm.displayMessage">ON/OFF</button>
       </div>
       <br />
-      <img class='paradise' v-bind:src="imageSrc" />
+      <img class="paradise" v-bind:src="imageSrc" />
       <div :class="[red, bold]">And i think to myself_</div>
       <div :class="bold">What a wonderful world!_</div>
       <a :href="url" :class="link">Let's go!</a>
       <br />
       <a :[attribute_name]="url">Come on!</a>
       <br /><br />
-      <table border=1>
-        <tr v-for="book of books" :key="book.id">
+      <table border="1">
+        <tr v-for="book of expensiveBooks" :key="book.id">
           <td>
-            <img width=100 :src="'images/books/' + book.image" v-if="book.price>=100000"/>
+            <img width="100" :src="'images/books/' + book.image"/>
           </td>
           <td>
-            <template v-for="(value, key) in book" v-if="book.price>=100000">
-              {{ key }} : {{ value }} <br>
+            <template v-for="(value, key) in book">
+              {{ key }} : {{ value }} <br />
             </template>
           </td>
         </tr>
@@ -110,6 +110,11 @@
               },
             ],
           };
+        },
+        computed: {
+          expensiveBooks() {
+            return this.books.filter((book) => book.price >= 100000);
+          },
         },
       };
 
