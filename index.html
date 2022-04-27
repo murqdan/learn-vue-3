@@ -36,23 +36,17 @@
       <a :[attribute_name]="url">Come on!</a>
       <br /><br />
       <table border=1>
-        <tr v-for="book of books">
+        <tr v-for="book of books" :key="book.id">
           <td>
-            <img width=100 :src="'images/books/' + book.image" />
-          </td>
+            <img width=100 :src="'images/books/' + book.image" v-if="book.price>=100000"/>
           </td>
           <td>
-            <template v-for="(value, key) in book">
+            <template v-for="(value, key) in book" v-if="book.price>=100000">
               {{ key }} : {{ value }} <br>
             </template>
           </td>
         </tr>
       </table>
-      <ul> 
-        <li style='list-style: none' v-for="book of books" :key="book.id">
-          {{ book.id }} - {{ book.title }}
-        </li>
-      </ul> 
     </div>
 
     <script>
@@ -121,9 +115,6 @@
 
       // vue app object
       const vm = Vue.createApp(App).mount('#app');
-
-      vm.books.splice(2, 0, { id:103, title: 'Mastering PHP 7' });
-      vm.books.splice(2, 1);
     </script>
   </body>
 </html>
