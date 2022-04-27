@@ -16,7 +16,7 @@
       <p v-html="rawHTML"></p>
       <p v-once>{{ message2 }}</p>
       <button onclick="vm.message2='How are you?'">change</button>
-      <br/><br/>
+      <br /><br />
       <div>
         <div v-if="value === 'A'">Perfect!_</div>
         <div v-else-if="value === 'B'">Good_</div>
@@ -27,8 +27,10 @@
         <p v-show="displayMessage">{{ message3 }}</p>
         <button onclick="vm.displayMessage=!vm.displayMessage">ON/OFF</button>
       </div>
-      <br/>
+      <br />
       <img v-bind:src="imageSrc" />
+      <div :class="[red, bold]">And i think to myself_</div>
+      <div :class="bold">What a wonderful world!_</div>
     </div>
 
     <script>
@@ -44,6 +46,8 @@
             message3: `Light Up!_`,
             imageSrc:
               'https://img.freepik.com/free-photo/waterfall-clean-tourist-blue-flow-asian_1417-1350.jpg?w=1380&t=st=1651043645~exp=1651044245~hmac=f4b7504ad64ed8ab3960ea34f0f4e5d212fd83752d75dcfb097a20679ee25438',
+            red: 'text-red',
+            bold: 'text-bold',
           };
         },
       };
