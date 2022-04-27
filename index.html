@@ -32,6 +32,8 @@
       <div :class="[red, bold]">And i think to myself_</div>
       <div :class="bold">What a wonderful world!_</div>
       <a :href="url" :class="link">Let's go!</a>
+      <br />
+      <a :[attribute_name]="url">Come on!</a>
     </div>
 
     <script>
@@ -51,6 +53,7 @@
             bold: 'text-bold',
             url: 'https://tiket.com',
             link: 'text-link',
+            attribute_name: 'href',
           };
         },
       };
