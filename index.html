@@ -11,16 +11,21 @@
   <body>
     <!-- mount point -->
     <div id="app">
+      <!-- template vue -->
       <h1 v-text="message"></h1>
       <p v-html="rawHTML"></p>
       <p v-once>{{ message2 }}</p>
       <button onclick="vm.message2='How are you?'">change</button>
-      <br/><br/>
+      <br /><br />
       <div>
         <div v-if="value === 'A'">Perfect!_</div>
         <div v-else-if="value === 'B'">Good_</div>
         <div v-else-if="value === 'C'">Enough_</div>
         <div v-else>Not enough_</div>
+      </div>
+      <div>
+        <p v-show="displayMessage">{{ message3 }}</p>
+        <button onclick="vm.displayMessage=!vm.displayMessage">ON/OFF</button>
       </div>
     </div>
 
@@ -33,6 +38,8 @@
             rawHTML: '<strong>Announcement_</strong>',
             message2: 'Welcome!_',
             value: 'A',
+            displayMessage: false,
+            message3: `Light Up!_`,
           };
         },
       };
