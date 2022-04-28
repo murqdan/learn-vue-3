@@ -56,7 +56,7 @@
       <br /><br />
       <a
         href="http://vuejs.org"
-        v-on:click="alert('You will be redirected to the vue website.', $event)"
+        v-on:click.prevent="alert('You will be redirected to the vue website.', $event)"
       >
         Vuejs.org
       </a>
@@ -126,9 +126,8 @@
           };
         },
         methods: {
-          alert(msg, event) {
+          alert(msg) {
             window.alert(msg);
-            event.preventDefault();
           },
         },
         computed: {
