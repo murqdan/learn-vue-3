@@ -49,7 +49,8 @@
       </table>
       <br />
       <button @click="counter++">+</button>
-      <p>Button telah diklik sebanyak {{ counter }} kali.</p>
+      <p>The button has been clicked {{ counter }} times.</p>
+      <button @click="alert('Hello!_'), alert('Now or never, right?_')">show</button>
     </div>
 
     <script>
@@ -114,6 +115,11 @@
             ],
             counter: 0,
           };
+        },
+        methods: {
+          alert(msg) {
+            window.alert(msg);
+          },
         },
         computed: {
           expensiveBooks() {
