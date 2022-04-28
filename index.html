@@ -13,7 +13,10 @@
     <div id="app">
       <!-- template vue -->
       <h1>TodoApp!_</h1>
-      <input placeholder="enter some task" />
+      <input
+        @keyup.enter="addTask($event.target)"
+        placeholder="enter some task"
+      />
       <ul>
         <li v-for="(task, index) in tasks" :key="index">{{ task }}</li>
       </ul>
@@ -30,6 +33,12 @@
               'Commit login feature',
             ],
           };
+        },
+        methods: {
+          addTask(field) {
+            this.tasks.push(field.value); // add new task
+            field.value = ''; // reset input field
+          },
         },
       };
 
