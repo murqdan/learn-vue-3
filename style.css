@@ -26,6 +26,10 @@ ul li:nth-child(odd) {
   background-color: #efefef;
 }
 
+ul li span:hover {
+  cursor: pointer;
+ }
+
 .done {
   text-decoration: line-through;
   color: #aaa;
