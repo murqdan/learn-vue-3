@@ -50,7 +50,16 @@
       <br />
       <button @click="counter++">+</button>
       <p>The button has been clicked {{ counter }} times.</p>
-      <button @click="alert('Hello!_'), alert('Now or never, right?_')">show</button>
+      <button @click="alert('Hello!_'), alert('Now or never, right?_')">
+        show
+      </button>
+      <br /><br />
+      <a
+        href="http://vuejs.org"
+        v-on:click="alert('You will be redirected to the vue website.', $event)"
+      >
+        Vuejs.org
+      </a>
     </div>
 
     <script>
@@ -117,8 +126,9 @@
           };
         },
         methods: {
-          alert(msg) {
+          alert(msg, event) {
             window.alert(msg);
+            event.preventDefault();
           },
         },
         computed: {
