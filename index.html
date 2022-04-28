@@ -18,7 +18,7 @@
         placeholder="enter some task"
       />
       <ul>
-        <li v-for="(task, index) in tasks" :key="index">{{ task }}</li>
+        <li v-for="(task, index) in tasks" :key="index">{{ task.title }}</li>
       </ul>
     </div>
 
@@ -28,16 +28,19 @@
         data() {
           return {
             tasks: [
-              'Review login feature',
-              'Fixed login feature',
-              'Commit login feature',
+              { title: 'Review login feature', status: false },
+              { title: 'Fixed login feature', status: true },
+              { title: 'Commit login feature', status: true },
             ],
           };
         },
         methods: {
           addTask(field) {
-            this.tasks.push(field.value); // add new task
-            field.value = ''; // reset input field
+            this.tasks.push({
+              title: field.value,
+              status: true,
+            });
+            field.value = '';
           },
         },
       };
