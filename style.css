@@ -8,7 +8,7 @@ input {
   width: 100%;
   padding: 5px 3px;
   box-sizing: border-box;
-  text-align:center;
+  text-align: center;
 }
 
 ul {
@@ -24,4 +24,9 @@ ul li {
 
 ul li:nth-child(odd) {
   background-color: #efefef;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #aaa;
 }
