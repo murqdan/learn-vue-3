@@ -1,31 +1,27 @@
 #app {
+  width: 250px;
   text-align: center;
+  margin: auto;
 }
 
-.paradise {
-  width: 350px;
-  height: 190px;
+input {
+  width: 100%;
+  padding: 5px 3px;
+  box-sizing: border-box;
+  text-align:center;
 }
 
-.text-red {
-  color: red;
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-.text-bold {
-  font-weight: bold;
+ul li {
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin-bottom: 5px;
 }
 
-.text-link {
-  text-decoration: underline;
-  color: blue;
-}
-
-table {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-td {
-  text-align: left;
-  padding-left: 7px;
+ul li:nth-child(odd) {
+  background-color: #efefef;
 }
