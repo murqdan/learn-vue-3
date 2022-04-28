@@ -19,7 +19,12 @@
       />
       <ul>
         <li v-for="(task, index) in tasks" :key="index">
-          <span :class="{ done: !task.status }" @click="task.status=!task.status">{{ task.title }}</span>
+          <span
+            :class="{ done: !task.status }"
+            @click="task.status=!task.status"
+            >{{ task.title }}</span
+          >
+          <button @click="this.tasks.splice(index, 1)"> x </button>  
         </li>
       </ul>
     </div>
