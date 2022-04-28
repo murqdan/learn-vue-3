@@ -38,7 +38,7 @@
       <table border="1">
         <tr v-for="book of sortBooks" :key="book.id">
           <td>
-            <img width="100" :src="'images/books/' + book.image"/>
+            <img width="100" :src="'images/books/' + book.image" />
           </td>
           <td>
             <template v-for="(value, key) in book">
@@ -47,6 +47,9 @@
           </td>
         </tr>
       </table>
+      <br />
+      <button @click="counter++">+</button>
+      <p>Button telah diklik sebanyak {{ counter }} kali.</p>
     </div>
 
     <script>
@@ -109,6 +112,7 @@
                 image: 'python-programming-blueprints.jpg',
               },
             ],
+            counter: 0,
           };
         },
         computed: {
