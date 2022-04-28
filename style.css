@@ -34,6 +34,10 @@ ul li button {
   float: right;
 }
 
+button.active{
+  background-color: #4ad981;
+ }
+
 .done {
   text-decoration: line-through;
   color: #aaa;
