@@ -18,7 +18,9 @@
         placeholder="enter some task"
       />
       <ul>
-        <li v-for="(task, index) in tasks" :key="index">{{ task.title }}</li>
+        <li v-for="(task, index) in tasks" :key="index">
+          <span :class="{ done: !task.status }">{{ task.title }}</span>
+        </li>
       </ul>
     </div>
 
