@@ -12,54 +12,11 @@
     <!-- mount point -->
     <div id="app">
       <!-- template vue -->
-      <h1 v-text="message"></h1>
-      <p v-html="rawHTML"></p>
-      <p v-once>{{ message2 }}</p>
-      <button onclick="vm.message2='How are you?'">change</button>
-      <br /><br />
-      <div>
-        <div v-if="value === 'A'">Perfect!_</div>
-        <div v-else-if="value === 'B'">Good_</div>
-        <div v-else-if="value === 'C'">Enough_</div>
-        <div v-else>Not enough_</div>
-      </div>
-      <div>
-        <p v-show="displayMessage">{{ message3 }}</p>
-        <button onclick="vm.displayMessage=!vm.displayMessage">ON/OFF</button>
-      </div>
-      <br />
-      <img class="paradise" v-bind:src="imageSrc" />
-      <div :class="[red, bold]">And i think to myself_</div>
-      <div :class="bold">What a wonderful world!_</div>
-      <a :href="url" :class="link">Let's go!</a>
-      <br />
-      <a :[attribute_name]="url">Come on!</a>
-      <br /><br />
-      <table border="1">
-        <tr v-for="book of sortBooks" :key="book.id">
-          <td>
-            <img width="100" :src="'images/books/' + book.image" />
-          </td>
-          <td>
-            <template v-for="(value, key) in book">
-              {{ key }} : {{ value }} <br />
-            </template>
-          </td>
-        </tr>
-      </table>
-      <br />
-      <button @click="counter++">+</button>
-      <p>The button has been clicked {{ counter }} times.</p>
-      <button @click="alert('Hello!_'), alert('Now or never, right?_')">
-        show
-      </button>
-      <br /><br />
-      <a
-        href="http://vuejs.org"
-        v-on:click.prevent="alert('You will be redirected to the vue website.', $event)"
-      >
-        Vuejs.org
-      </a>
+      <h1>TodoApp!_</h1>
+      <input placeholder="enter some task" />
+      <ul>
+        <li v-for="(task, index) in tasks" :key="index">{{ task }}</li>
+      </ul>
     </div>
 
     <script>
@@ -67,76 +24,12 @@
       const App = {
         data() {
           return {
-            message: 'Hello, World!_',
-            rawHTML: '<strong>Announcement_</strong>',
-            message2: 'Welcome!_',
-            value: 'A',
-            displayMessage: false,
-            message3: `Light Up!_`,
-            imageSrc:
-              'https://img.freepik.com/free-photo/waterfall-clean-tourist-blue-flow-asian_1417-1350.jpg?w=1380&t=st=1651043645~exp=1651044245~hmac=f4b7504ad64ed8ab3960ea34f0f4e5d212fd83752d75dcfb097a20679ee25438',
-            red: 'text-red',
-            bold: 'text-bold',
-            url: 'https://tiket.com',
-            link: 'text-link',
-            attribute_name: 'href',
-            books: [
-              {
-                id: 99,
-                title: 'C++ High Performance',
-                description:
-                  'Write code that scales across CPU registers, multicore, and machine clusters',
-                authors: 'Viktor Sehr, Björn Andrist',
-                publish_year: 2018,
-                price: 100000,
-                image: 'c++-high-performance.jpg',
-              },
-              {
-                id: 100,
-                title: 'Mastering Linux Security and Hardening',
-                description:
-                  'A comprehensive guide to mastering the art of preventing your Linux system from getting compromised',
-                authors: 'Donald A. Tevault',
-                publish_year: 2018,
-                price: 125000,
-                image: 'mastering-linux-security-and-hardening.png',
-              },
-              {
-                id: 101,
-                title: 'Mastering PostgreSQL 10',
-                description:
-                  'Master the capabilities of PostgreSQL 10 to efficiently manage and maintain your database',
-                authors: 'Hans-Jürgen Schönig',
-                publish_year: 2016,
-                price: 90000,
-                image: 'mastering-postgresql-10.jpg',
-              },
-              {
-                id: 102,
-                title: 'Python Programming Blueprints',
-                description:
-                  'How to build useful, real-world applications in the Python programming language',
-                authors: 'Daniel Furtado, Marcus Pennington',
-                publish_year: 2017,
-                price: 75000,
-                image: 'python-programming-blueprints.jpg',
-              },
+            tasks: [
+              'Review login feature',
+              'Fixed login feature',
+              'Commit login feature',
             ],
-            counter: 0,
           };
-        },
-        methods: {
-          alert(msg) {
-            window.alert(msg);
-          },
-        },
-        computed: {
-          expensiveBooks() {
-            return this.books.filter((book) => book.price >= 100000);
-          },
-          sortBooks() {
-            return this.books.sort((a, b) => a.price - b.price);
-          },
         },
       };
 
