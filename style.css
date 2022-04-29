@@ -1,44 +1,32 @@
-#app {
-  width: 250px;
-  text-align: center;
-  margin: auto;
+div {
+  margin-bottom: 10px;
 }
 
-input {
-  width: 100%;
-  padding: 5px 3px;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  border: 1px solid #ddd;
+div > label {
+  width: 85px;
   padding: 5px;
-  margin-bottom: 5px;
+  display: inline-block;
+  vertical-align: top;
 }
 
-ul li:nth-child(odd) {
-  background-color: #efefef;
+input[type='text'],
+textarea {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-ul li span:hover {
-  cursor: pointer;
+input[type='number'] {
+  width: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-ul li button {
-  float: right;
-}
-
-button.active{
-  background-color: #4ad981;
- }
-
-.done {
-  text-decoration: line-through;
-  color: #aaa;
+select {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
