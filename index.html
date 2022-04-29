@@ -12,60 +12,63 @@
     <!-- mount point -->
     <div id="app">
       <!-- template vue -->
-      <h1>Form!_</h1>
-      <div>
-        <label>Title </label>
-        <input type="text" name="title" v-model="book.title" />
-      </div>
-      <div>
-        <label>Description</label>
-        <textarea
-          name="description"
-          v-model.trim="book.description"
-          rows="3"
-        ></textarea>
-      </div>
-      <div>
-        <label>Price</label>
-        <input type="number" name="price" v-model.number="book.price" />
-      </div>
-      <div>
-        <label>Category</label>
-        <select name="category" v-model="book.category">
-          <option v-for="option in category_options" :value="option">
-            {{ option }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label>Authors</label>
-        <select name="authors" v-model="book.authors" multiple>
-          <option v-for="option in ['jack', 'john', 'mike']" :value="option">
-            {{ option }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label>Status</label>
-        <span>
-          <input
-            type="radio"
-            name="status"
-            id="draft"
-            value="draft"
-            v-model="book.status"
-          />
-          <label for="draft">Draf</label>
-          <input
-            type="radio"
-            name="status"
-            id="publish"
-            value="publish"
-            v-model="book.status"
-          />
-          <label for="publish">Publish</label>
-        </span>
-      </div>
+      <form @submit.prevent="submitForm(book)">
+        <h1>Form!_</h1>
+        <div>
+          <label>Title </label>
+          <input type="text" name="title" v-model="book.title" />
+        </div>
+        <div>
+          <label>Description</label>
+          <textarea
+            name="description"
+            v-model.trim="book.description"
+            rows="3"
+          ></textarea>
+        </div>
+        <div>
+          <label>Price</label>
+          <input type="number" name="price" v-model.number="book.price" />
+        </div>
+        <div>
+          <label>Category</label>
+          <select name="category" v-model="book.category">
+            <option v-for="option in category_options" :value="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label>Authors</label>
+          <select name="authors" v-model="book.authors" multiple>
+            <option v-for="option in ['jack', 'john', 'mike']" :value="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label>Status</label>
+          <span>
+            <input
+              type="radio"
+              name="status"
+              id="draft"
+              value="draft"
+              v-model="book.status"
+            />
+            <label for="draft">Draf</label>
+            <input
+              type="radio"
+              name="status"
+              id="publish"
+              value="publish"
+              v-model="book.status"
+            />
+            <label for="publish">Publish</label>
+          </span>
+        </div>
+        <button type="submit">SUBMIT</button>
+      </form>
     </div>
 
     <script>
@@ -84,6 +87,11 @@
             },
             category_options: ['general', 'programming', 'design'],
           };
+        },
+        methods: {
+          submitForm(book) {
+            console.log(book);
+          },
         },
       };
 
