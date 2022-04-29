@@ -12,33 +12,8 @@
     <!-- mount point -->
     <div id="app">
       <!-- template vue -->
-      <h1>TodoApp!_</h1>
-      <input
-        @keyup.enter="addTask($event.target)"
-        placeholder="enter some task"
-      />
-      <ul>
-        <li v-for="(task, index) in displayTasks" :key="index">
-          <span
-            :class="{ done: !task.status }"
-            @click="task.status=!task.status"
-            >{{ task.title }}</span
-          >
-          <button @click="this.tasks.splice(index, 1)">x</button>
-        </li>
-      </ul>
-      <div>
-        Filter:
-        <button :class="{ active: filter === '' }" @click="filter= '' ">
-          ALL
-        </button>
-        <button :class="{ active: filter === 'new' }" @click="filter= 'new' ">
-          NEW
-        </button>
-        <button :class="{ active: filter === 'done' }" @click="filter= 'done' ">
-          DONE
-        </button>
-      </div>
+      <h1>Form!_</h1>
+      <input type="text" name="name" :value="name" />
     </div>
 
     <script>
@@ -46,31 +21,8 @@
       const App = {
         data() {
           return {
-            tasks: [
-              { title: 'Review login feature', status: false },
-              { title: 'Fixed login feature', status: true },
-              { title: 'Commit login feature', status: true },
-            ],
-            filter: '',
+            name: 'Hafid Mukhlasin',
           };
-        },
-        methods: {
-          addTask(field) {
-            this.tasks.push({
-              title: field.value,
-              status: true,
-            });
-            field.value = '';
-          },
-        },
-        computed: {
-          displayTasks() {
-            return this.tasks.filter((task) => {
-              if (this.filter === 'new') return task.status;
-              else if (this.filter === 'done') return !task.status;
-              else return true;
-            });
-          },
         },
       };
 
