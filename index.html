@@ -67,6 +67,10 @@
             <label for="publish">Publish</label>
           </span>
         </div>
+        <div>
+          <label>Cover:</label>
+          <input name="cover" ref="cover" type="file">
+        </div>
         <button type="submit">SUBMIT</button>
         <p v-if="errorMessages.length">
           <b>Please correct the following error(s):</b>
@@ -127,7 +131,10 @@
               alert('Thank you for filling out the form correctly!');
 
               let formData = new FormData(form);
+              let cover = this.$refs.cover.files[0]
+              
               formData.append('authors', JSON.stringify(authors))
+              formData.append("cover", cover);
 
               fetch('http://localhost:81/index.php', {
                 method: 'POST',
