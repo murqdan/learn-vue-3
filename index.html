@@ -125,6 +125,9 @@
             }
             if (valid === true) {
               alert('Thank you for filling out the form correctly!');
+
+              let formData = new FormData(form);
+              formData.append('authors', JSON.stringify(authors))
             }
           },
         },
