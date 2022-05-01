@@ -128,6 +128,18 @@
 
               let formData = new FormData(form);
               formData.append('authors', JSON.stringify(authors))
+
+              fetch('http://localhost:81/index.php', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.text())
+              .then(data => {
+                console.log('Success:', data);
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
             }
           },
         },
