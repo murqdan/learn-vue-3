@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Belajar Vue</title>
+    <title>Learn Vue.js</title>
     <script src="https://unpkg.com/vue@next"></script>
+    <style type="text/css">
+      .card {
+        background: #fdfdfd;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 5px;
+        width: 150px;
+        float: left;
+      }
+      .card h3 {
+        text-align: center;
+        margin: 0;
+      }
+      .card img {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
 
     <script>
-      const Welcome = {
-        data() {
-          return {
-            gretting: 'Welcome',
-          };
-        },
-        props: ['name'], // <==
-        template: `<h1> {{gretting}} {{name}}!_ </h1>`, // <==
+      const Book = {
+        props: ['title', 'image'],
+        template:
+        `<div class="card">
+          <h3>{{ title }}</h3>
+          <img :src="'images/books/'+image" />
+        </div>`,
       };
 
       const app = Vue.createApp({
         components: {
-          welcome: Welcome,
+          book: Book,
         },
-        template:
+        template: 
         `<div>
-          <welcome name='Murqdan'/>
-          <welcome name='Murqdan'/>
-          <welcome name='Murqdan'/>
+          <book title="C++" image="c++-high-performance.jpg" />
+          <book title="Linux" image="mastering-linux-security-and-hardening.png" />
         </div>`,
       }).mount('#app');
     </script>
