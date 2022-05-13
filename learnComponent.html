@@ -9,18 +9,24 @@
 
     <script>
       const Welcome = {
-        template: '<h1>Welcome!_</h1>',
+        data() {
+          return {
+            gretting: 'Welcome',
+          };
+        },
+        props: ['name'], // <==
+        template: `<h1> {{gretting}} {{name}}!_ </h1>`, // <==
       };
 
       const app = Vue.createApp({
         components: {
-          'welcome': Welcome,
+          welcome: Welcome,
         },
         template:
         `<div>
-          <welcome />
-          <welcome />
-          <welcome />
+          <welcome name='Murqdan'/>
+          <welcome name='Murqdan'/>
+          <welcome name='Murqdan'/>
         </div>`,
       }).mount('#app');
     </script>
