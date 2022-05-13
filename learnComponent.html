@@ -9,10 +9,20 @@
 
     <script>
       const Welcome = {
-      template: '<h1>Welcome!_</h1>'
-      }
+        template: '<h1>Welcome!_</h1>',
+      };
 
-      const app = Vue.createApp(Welcome).mount('#app')
+      const app = Vue.createApp({
+        components: {
+          'welcome': Welcome,
+        },
+        template:
+        `<div>
+          <welcome />
+          <welcome />
+          <welcome />
+        </div>`,
+      }).mount('#app');
     </script>
   </body>
 </html>
