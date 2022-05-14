@@ -26,23 +26,39 @@
     <div id="app"></div>
 
     <script>
-      const Book = {
-        props: ['title', 'image'],
+      const Ebook = {
+        props: {
+          title: String,
+          stock: Number,
+          authors: Array,
+          status: Boolean,
+        },
         template:
-        `<div class="card">
+        `<div>
           <h3>{{ title }}</h3>
-          <img :src="'images/books/'+image" />
+          <ul>
+            <li>stock: {{stock > 0 ? stock : '-'}}</li>
+            <li>authors: {{authors.join(', ')}}</li>
+            <li>status: {{status ? 'publish' : 'draft'}}</li>
+          </ul>
         </div>`,
       };
 
       const app = Vue.createApp({
         components: {
-          book: Book,
+          ebook: Ebook,
         },
-        template: 
+        data() {
+          return {
+            title: 'Vue',
+            stock: 7,
+            authors: ['azam', 'hafid'],
+            status: true,
+          };
+        },
+        template:
         `<div>
-          <book title="C++" image="c++-high-performance.jpg" />
-          <book title="Linux" image="mastering-linux-security-and-hardening.png" />
+          <ebook :title="title" :stock="stock" :authors="authors" :status="status"/>
         </div>`,
       }).mount('#app');
     </script>
