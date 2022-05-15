@@ -28,10 +28,28 @@
     <script>
       const Ebook = {
         props: {
-          title: String,
-          stock: Number,
+          title: {
+            type: String,
+            required: true,
+          },
+          stock: {
+            type: Number,
+            default: 1,
+          },
           authors: Array,
-          status: Boolean,
+          level: {
+            type: String,
+            validator: function (value) {
+              return (
+                ['beginner', 'intermediate', 'advanced'].indexOf(value) !== -1
+              );
+            },
+            default: 'beginner',
+          },
+          status: {
+            type: Boolean,
+            default: true,
+          },
         },
         template:
         `<div>
@@ -39,7 +57,8 @@
           <ul>
             <li>stock: {{stock > 0 ? stock : '-'}}</li>
             <li>authors: {{authors.join(', ')}}</li>
-            <li>status: {{status ? 'publish' : 'draft'}}</li>
+            <li>status: {{status ? 'publish' : 'draft'}}</li>        
+            <li>level: {{level}}</li>
           </ul>
         </div>`,
       };
