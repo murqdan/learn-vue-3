@@ -26,58 +26,42 @@
     <div id="app"></div>
 
     <script>
-      const Ebook = {
-        props: {
-          title: {
-            type: String,
-            required: true,
-          },
-          stock: {
-            type: Number,
-            default: 1,
-          },
-          authors: Array,
-          level: {
-            type: String,
-            validator: function (value) {
-              return (
-                ['beginner', 'intermediate', 'advanced'].indexOf(value) !== -1
-              );
-            },
-            default: 'beginner',
-          },
-          status: {
-            type: Boolean,
-            default: true,
-          },
+      const Book = {
+        props: ['title', 'image'],
+        data() {
+          return {
+            qty: 0,
+          };
         },
+        emits: ['select'],
         template:
-        `<div>
+        `<div class="card">
           <h3>{{ title }}</h3>
-          <ul>
-            <li>stock: {{stock > 0 ? stock : '-'}}</li>
-            <li>authors: {{authors.join(', ')}}</li>
-            <li>status: {{status ? 'publish' : 'draft'}}</li>        
-            <li>level: {{level}}</li>
-          </ul>
+          <img :src="'images/books/'+image" />
+          Total: <input type="text" size="2" v-model="qty" />
+          <button @click="$emit('select', { title, qty })">BUY</button>
         </div>`,
       };
 
       const app = Vue.createApp({
-        components: {
-          ebook: Ebook,
-        },
         data() {
           return {
-            title: 'Vue',
-            stock: 7,
-            authors: ['azam', 'hafid'],
-            status: true,
+            selectedBook: { title: '', qty: 0 },
           };
         },
-        template:
+        components: {
+          book: Book,
+        },
+        template: 
         `<div>
-          <ebook :title="title" :stock="stock" :authors="authors" :status="status"/>
+          <h1> Buy your favorite book! </h1>
+          <book title="C++" image="c++-high-performance.jpg" @select="selectedBook=$event" />
+          <book title="LINUX" image="mastering-linux-security-and-hardening.png" @select="selectedBook=$event"/>
+          <hr style="clear: both" />
+          <ul v-if="selectedBook.qty>0">
+            <li>Title: {{selectedBook.title}}</li>
+            <li>Total: {{selectedBook.qty}}</li>
+          </ul>
         </div>`,
       }).mount('#app');
     </script>
