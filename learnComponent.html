@@ -4,21 +4,8 @@
     <title>Learn Vue.js</title>
     <script src="https://unpkg.com/vue@next"></script>
     <style type="text/css">
-      .card {
-        background: #fdfdfd;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin: 5px;
-        padding: 5px;
-        width: 150px;
-        float: left;
-      }
-      .card h3 {
+      .panel {
         text-align: center;
-        margin: 0;
-      }
-      .card img {
-        width: 100%;
       }
     </style>
   </head>
@@ -26,43 +13,38 @@
     <div id="app"></div>
 
     <script>
-      const NameInput = {
-      props: ['firstname', 'lastname'],
-      emits: ['update:firstname', 'update:lastname'],
-      template: 
-      `<div>
-        Firstname:
-        <input
-        :value="firstname"
-        @input="$emit('update:firstname', $event.target.value)"
-        />
-        Lastname:
-        <input
-        :value="lastname"
-        @input="$emit('update:lastname', $event.target.value)"
-        />
-      </div>`
+      const Panel = {
+        props: ['title'],
+        template: 
+        `<div class="panel">
+          <h1> {{ title }} </h1>
+          <slot></slot>
+        </div>`
       }
 
       const app = Vue.createApp({
-        data () {
-          return {
-          firstName: '',
-          lastName: '',
-          }
-        },
         components: {
-         NameInput,
+          panel:Panel,
         },
         template: 
-        `<div>
-          <name-input
-            v-model:firstname="firstName"
-            v-model:lastname="lastName"
-          ></name-input>
-          <hr style="clear: both" />
-          Fullname: {{firstName}} {{lastName}}
-        </div>`,
+        `<panel title="Information">
+          <table border="1" width="100%">
+            <tbody>
+              <tr>
+                <th>No</th>
+                <th>Title</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Laravel</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Vue</td>
+              </tr>
+            </tbody>
+          </table>
+        </panel>`,
       }).mount('#app');
     </script>
   </body>
