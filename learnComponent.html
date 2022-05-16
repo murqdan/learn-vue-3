@@ -26,42 +26,42 @@
     <div id="app"></div>
 
     <script>
-      const Book = {
-        props: ['title', 'image'],
-        data() {
-          return {
-            qty: 0,
-          };
-        },
-        emits: ['select'],
-        template:
-        `<div class="card">
-          <h3>{{ title }}</h3>
-          <img :src="'images/books/'+image" />
-          Total: <input type="text" size="2" v-model="qty" />
-          <button @click="$emit('select', { title, qty })">BUY</button>
-        </div>`,
-      };
+      const NameInput = {
+      props: ['firstname', 'lastname'],
+      emits: ['update:firstname', 'update:lastname'],
+      template: 
+      `<div>
+        Firstname:
+        <input
+        :value="firstname"
+        @input="$emit('update:firstname', $event.target.value)"
+        />
+        Lastname:
+        <input
+        :value="lastname"
+        @input="$emit('update:lastname', $event.target.value)"
+        />
+      </div>`
+      }
 
       const app = Vue.createApp({
-        data() {
+        data () {
           return {
-            selectedBook: { title: '', qty: 0 },
-          };
+          firstName: '',
+          lastName: '',
+          }
         },
         components: {
-          book: Book,
+         NameInput,
         },
         template: 
         `<div>
-          <h1> Buy your favorite book! </h1>
-          <book title="C++" image="c++-high-performance.jpg" @select="selectedBook=$event" />
-          <book title="LINUX" image="mastering-linux-security-and-hardening.png" @select="selectedBook=$event"/>
+          <name-input
+            v-model:firstname="firstName"
+            v-model:lastname="lastName"
+          ></name-input>
           <hr style="clear: both" />
-          <ul v-if="selectedBook.qty>0">
-            <li>Title: {{selectedBook.title}}</li>
-            <li>Total: {{selectedBook.qty}}</li>
-          </ul>
+          Fullname: {{firstName}} {{lastName}}
         </div>`,
       }).mount('#app');
     </script>
