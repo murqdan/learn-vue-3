@@ -32,10 +32,8 @@
           'list-book': ListBook
         },
         template: 
-        `<list-book>
-          <template v-slot:default="slotProps">
-            <h2>{{ slotProps.book }}</h2>
-          </template>
+        `<list-book v-slot="slotProps">
+          <h2>{{ slotProps.book }}</h2>
         </list-book>`
       }).mount('#app');
     </script>
