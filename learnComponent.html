@@ -14,11 +14,10 @@
 
     <script>
       const Panel = {
-        props: ['title'],
         template: 
         `<div class="panel">
-          <h1> {{ title }} </h1>
-          <slot> - </slot>
+          <slot name="title"> Title </slot>
+          <slot> Content </slot>
         </div>`
       }
 
@@ -27,23 +26,29 @@
           panel:Panel,
         },
         template: 
-        `<panel title="Information">
-          <table border="1" width="100%">
-            <tbody>
-              <tr>
-                <th>No</th>
-                <th>Title</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Laravel</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Vue</td>
-              </tr>
-            </tbody>
-          </table>
+        `<panel>
+          <template #title>
+            <h1>Informasi</h1>
+          </template>
+
+          <template v-slot:default>
+            <table border="1" width="100%">
+              <tbody>
+                <tr>
+                  <th>No</th>
+                  <th>Title</th>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Laravel</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Vue</td>
+                </tr>
+              </tbody>
+            </table>
+          </template>  
         </panel>`,
       }).mount('#app');
     </script>
