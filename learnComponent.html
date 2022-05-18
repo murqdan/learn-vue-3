@@ -13,43 +13,30 @@
     <div id="app"></div>
 
     <script>
-      const Panel = {
-        template: 
-        `<div class="panel">
-          <slot name="title"> Title </slot>
-          <slot> Content </slot>
-        </div>`
-      }
-
-      const app = Vue.createApp({
-        components: {
-          panel:Panel,
+      const ListBook = {
+        data () {
+          return {
+            books: ['laravel', 'Vue']
+          }
         },
         template: 
-        `<panel>
-          <template #title>
-            <h1>Informasi</h1>
+        `<ul>
+          <li v-for="(book, index) in books">
+            <slot :book="book"></slot>
+          </li>
+        </ul>`
+      }
+      
+      const app = Vue.createApp({
+        components: {
+          'list-book': ListBook
+        },
+        template: 
+        `<list-book>
+          <template v-slot:default="slotProps">
+            <h2>{{ slotProps.book }}</h2>
           </template>
-
-          <template v-slot:default>
-            <table border="1" width="100%">
-              <tbody>
-                <tr>
-                  <th>No</th>
-                  <th>Title</th>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Laravel</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Vue</td>
-                </tr>
-              </tbody>
-            </table>
-          </template>  
-        </panel>`,
+        </list-book>`
       }).mount('#app');
     </script>
   </body>
