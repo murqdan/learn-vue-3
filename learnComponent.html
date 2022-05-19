@@ -12,20 +12,8 @@
   <body>
     <div id="app"></div>
 
-    <script>
-      const ListBook = {
-        data () {
-          return {
-            books: ['laravel', 'Vue']
-          }
-        },
-        template: 
-        `<ul>
-          <li v-for="(book, index) in books">
-            <slot :book="book"></slot>
-          </li>
-        </ul>`
-      }
+    <script type="module">
+      import { ListBook } from "./list-book.js"
       
       const app = Vue.createApp({
         components: {
