@@ -3,90 +3,44 @@
   <head>
     <title>Learn Vue.js</title>
     <script src="https://unpkg.com/vue@next"></script>
-    <style type="text/css">
-      .layout {
-        display: flex;
-      }
-      .layout .sidebar {
-        flex: 25%;
-        min-height: 100vh;
-        padding: 5px 0 5px 5px;
-        border-right: 1px solid #ddd;
-      }
-      .layout .main {
-        flex: 75%;
-        padding: 5px;
-        border: 1px solid #ddd;
-        border-left-width: 0;
-      }
-      h2 {
-        margin: 0;
-      }
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 5px -1px;
-      }
-      ul li {
-        border: 1px solid #ddd;
-        border-right-width: 0;
-        background-color: #eee;
-        padding: 5px;
-        margin-bottom: 3px;
-        border-radius: 5px 0 0 5px;
-      }
-      ul li:hover {
-        background-color: #fff;
-        cursor: pointer;
-      }
-      .page {
-        min-height: 100px;
-      }
-
-      .fade-enter-active, .fade-leave-active {
-        transition: opacity 0.3s ease;
-      }
-      
-      .fade-enter-from, .fade-leave-to {
-        opacity: 0;
-      }
-    </style>
   </head>
   <body>
     <div id="app"></div>
 
     <script type="module">
-      const mixinHello = {
-        data() {
-          return {
-            message: 'data message from mixins!',
-          }
-        },
-        methods: {
-          hello: function () {
-            console.log('hello from mixin!')
+      const mixinLocal = {
+        created() {
+          const myOption = this.$options.myOption
+          if (myOption) {
+            console.log(myOption + ' FROM LOCAL MIXIN')
           }
         }
       }
 
       const app = Vue.createApp({
-        mixins: [mixinHello],
-        data() {
-          return {
-            message: 'data message from component!',
+        mixins: [mixinLocal],
+        myOption: 'MAIN COMPONENT',
+        template: 
+        `<div>
+          <child-component />
+        </div>`
+      })
+
+      app.mixin({
+        created() {
+          const myOption = this.$options.myOption
+          if (myOption) {
+            console.log(myOption + ' FROM GLOBAL MIXIN')
           }
-        },
-        methods: {
-          hello: function () {
-            console.log('hello from component!')
-          }
-        },
-        created: function () {
-          console.log(this.message) 
-          this.hello()
-        },
-        template: `learn mixins`
-      }).mount('#app');
+        }
+      })
+      
+      app.component('child-component', {
+        myOption: 'CHILD COMPONENT',
+        template: 'child-component'
+      })
+
+      app.mount('#app')
     </script>
   </body>
 </html>
