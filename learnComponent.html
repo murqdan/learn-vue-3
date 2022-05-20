@@ -57,8 +57,10 @@
 
     <script type="module">
       const mixinHello = {
-        created: function () {
-          this.hello()
+        data() {
+          return {
+            message: 'data message from mixins!',
+          }
         },
         methods: {
           hello: function () {
@@ -69,7 +71,18 @@
 
       const app = Vue.createApp({
         mixins: [mixinHello],
+        data() {
+          return {
+            message: 'data message from component!',
+          }
+        },
+        methods: {
+          hello: function () {
+            console.log('hello from component!')
+          }
+        },
         created: function () {
+          console.log(this.message) 
           this.hello()
         },
         template: `learn mixins`
