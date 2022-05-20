@@ -70,7 +70,7 @@
       const app = Vue.createApp({
         mixins: [mixinHello],
         created: function () {
-          console.log('hello from component!')
+          this.hello()
         },
         template: `learn mixins`
       }).mount('#app');
