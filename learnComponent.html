@@ -8,38 +8,26 @@
     <div id="app"></div>
 
     <script type="module">
-      const mixinLocal = {
-        created() {
-          const myOption = this.$options.myOption
-          if (myOption) {
-            console.log(myOption + ' FROM LOCAL MIXIN')
-          }
-        }
-      }
+      // import file pluginsnya
+      import dummy from './plugins/dummy.js'
 
       const app = Vue.createApp({
-        mixins: [mixinLocal],
-        myOption: 'MAIN COMPONENT',
+        created() {
+          // memanggil method log yang didefinisikan pada global method plugin
+          this.log('message dari komponen utama')
+        },
         template: 
         `<div>
-          <child-component />
+          Belajar Plugins
+          <hr />
+          <input type="text" v-focus />
         </div>`
       })
 
-      app.mixin({
-        created() {
-          const myOption = this.$options.myOption
-          if (myOption) {
-            console.log(myOption + ' FROM GLOBAL MIXIN')
-          }
-        }
+      app.use(dummy, {
+      dataFromOption: 'data dari option'
       })
       
-      app.component('child-component', {
-        myOption: 'CHILD COMPONENT',
-        template: 'child-component'
-      })
-
       app.mount('#app')
     </script>
   </body>
