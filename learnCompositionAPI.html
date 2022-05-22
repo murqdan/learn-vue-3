@@ -11,15 +11,22 @@
     <div id="app"></div>
 
     <script type="module">
-      const { toRef } = Vue
+      const { toRefs } = Vue
       
       const Hello = {
-        //props: ['message'],
+        props: ['message'],
         setup(props, context) {
-          // kode logic disini
-          const message = toRef(props, 'message')
+          const { message } = toRefs(props)
           console.log(message)
           const var1 = "just testing"
+
+          // Attributes (Non-reactive object)
+          console.log(context.attrs)
+          // Slots (Non-reactive object)
+          console.log(context.slots)
+          // Emit Events (Method)
+          console.log(context.emit)
+          
           return { var1 }
         },
         template: `<div>{{ message }} - {{ var1 }}</div>`
