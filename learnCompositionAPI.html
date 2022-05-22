@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Vue.js</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      const { toRefs } = Vue
+      
+      const Hello = {
+        props: ['message'],
+        setup(props, context) {
+          // kode logic disini
+          const { message } = toRefs(props)
+          console.log(message)
+          const var1 = "just testing"
+          return { var1 }
+        },
+        template: `<div>{{ message }} - {{ var1 }}</div>`
+      }
+
+      const app = Vue.createApp({
+        components: {
+          hello: Hello
+        },
+        template: `<hello message="Hi!, What's Up?"/>`
+      }).mount('#app')
+    </script>
+  </body>
+</html>
