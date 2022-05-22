@@ -11,13 +11,13 @@
     <div id="app"></div>
 
     <script type="module">
-      const { toRefs } = Vue
+      const { toRef } = Vue
       
       const Hello = {
-        props: ['message'],
+        //props: ['message'],
         setup(props, context) {
           // kode logic disini
-          const { message } = toRefs(props)
+          const message = toRef(props, 'message')
           console.log(message)
           const var1 = "just testing"
           return { var1 }
