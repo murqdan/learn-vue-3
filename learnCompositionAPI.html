@@ -11,42 +11,37 @@
     <div id="app"></div>
 
     <script type="module">
-      const { reactive } = Vue
+      const { ref, computed } = Vue
       
-      const dataBooks = [
-        { id:1, title:"Laravel" },
-        { id:2, title:"Vue" },
-        { id:3, title:"PHP" },
-        { id:4, title:"React" },
-        { id:5, title:"Express" },
-        { id:6, title:"Javascript" },
-        { id:7, title:"Node" }
-      ]
-
-      const ListBook = {
-        setup(props, context) {
-          const books = reactive(dataBooks)
-          return { books }
-        },
-        template: 
-        `<div class="page">
-          <ul class="list">
-            <li v-for="book in books" key="book.id">
-              {{ book.title }}
-            </li>
-          </ul>
-        </div>`
-      }
-
-      const app = Vue.createApp({
-        components: {
-          'list-book': ListBook
-        },
+      const InputName = {
         template: 
         `<div>
-          <list-book />
-        </div>`
-      }).mount('#app')
+          First name: <input v-model="firstName" />
+          <br />
+          Last name: <input v-model="lastName" />
+          <br />
+          Full name: {{ fullName }}
+        </div>`,
+        setup (props, context) {
+          // create a data property override
+          const firstName = ref('')
+          const lastName = ref('')
+
+          // create a computed function
+          const fullName = computed(() => {
+            return `${firstName.value} ${lastName.value}`
+          })
+          
+          // expose variables so they can be used in templates
+          return {
+            firstName, lastName, fullName
+          }
+        }
+      }
+
+      const app = Vue
+      .createApp(InputName)
+      .mount('#app')
     </script>
   </body>
 </html>
