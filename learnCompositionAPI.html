@@ -11,10 +11,10 @@
     <div id="app"></div>
 
     <script type="module">
-      const { ref, reactive, computed } = Vue;
+      const { ref, reactive, computed, provide, inject } = Vue;
 
       const ListBook = {
-        props: ['endpoint'],
+        //inject: [ 'endpoint' ],
         setup(props, context) {
           const books = reactive([]);
           const keyword = ref('');
@@ -23,7 +23,9 @@
 
           const fetchBooks = () => {
             loading.value = true;
-            fetch(props.endpoint)
+            // inject endpoint
+            const endpoint = inject('endpoint');
+            fetch(endpoint)
               .then((response) => {
                 return response.json();
               })
@@ -36,6 +38,7 @@
           };
 
           fetchBooks();
+
           const searchBook = (books, keyword) => {
             return books.filter((book) => {
               return keyword === '' ? true : book.title.search(keyword) >= 0;
@@ -63,7 +66,7 @@
             }
             return localBooks;
           });
-          
+
           return {
             displayBooks,
             keyword,
@@ -74,8 +77,8 @@
         `<div class="page">
           <div class="control">
             <div>
-            <label>Search: </label>
-            <input type="text" v-model="keyword" />
+              <label>Search: </label>
+              <input type="text" v-model="keyword" />
             </div>
           <div>
           <label>Sort: </label>
@@ -88,18 +91,22 @@
           </div>
           <ul class="list">
             <li v-for="book in displayBooks" key="book.id">
-              {{ book.title }}
+              { book.title }}
             </li>
           </ul>
         </div>`,
       };
+      
       const app = Vue.createApp({
         components: {
           'list-book': ListBook,
         },
+        setup(props) {
+          provide('endpoint', 'http://localhost:5000/ch06/books.json');
+        },
         template: 
         `<div>
-          <list-book endpoint="http://localhost:5500/books.json" />
+          <list-book />
         </div>`,
       }).mount('#app');
     </script>
