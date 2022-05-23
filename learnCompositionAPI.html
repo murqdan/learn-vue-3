@@ -11,32 +11,35 @@
     <div id="app"></div>
 
     <script type="module">
-      const { toRefs } = Vue
+      const { ref } = Vue
       
-      const Hello = {
-        props: ['message'],
-        setup(props, context) {
-          const { message } = toRefs(props)
-          console.log(message)
-          const var1 = "just testing"
-
-          // Attributes (Non-reactive object)
-          console.log(context.attrs)
-          // Slots (Non-reactive object)
-          console.log(context.slots)
-          // Emit Events (Method)
-          console.log(context.emit)
-          
-          return { var1 }
-        },
-        template: `<div>{{ message }} - {{ var1 }}</div>`
+      const Counter = {
+      props: {
+        initial: {
+          type: Number,
+          required: true
+        }
+      },
+      setup(props, context) {
+        const counter = ref(props.initial)
+        return { counter }
+      },
+      template: 
+      `<div>
+        <button @click="(counter > 0) && counter--"> - </button>
+          {{ counter }}
+        <button @click="counter++"> + </button>
+      </div>`
       }
 
       const app = Vue.createApp({
         components: {
-          hello: Hello
+          'counter': Counter
         },
-        template: `<hello message="Hi!, What's Up?"/>`
+        template: 
+        `<div>
+          <counter :initial="0" />
+        </div>`
       }).mount('#app')
     </script>
   </body>
