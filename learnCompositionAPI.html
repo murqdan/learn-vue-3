@@ -11,36 +11,32 @@
     <div id="app"></div>
 
     <script type="module">
-      const { ref, computed } = Vue
+      const { ref, watch } = Vue
       
-      const InputName = {
+      const InputDistance = {
         template: 
         `<div>
-          First name: <input v-model="firstName" />
+          Miles : <input v-model="miles" />
           <br />
-          Last name: <input v-model="lastName" />
-          <br />
-          Full name: {{ fullName }}
+          Kilometers : <input v-model="kilometers" />
         </div>`,
         setup (props, context) {
-          // create a data property override
-          const firstName = ref('')
-          const lastName = ref('')
-
-          // create a computed function
-          const fullName = computed(() => {
-            return `${firstName.value} ${lastName.value}`
+          const miles = ref(null)
+          const kilometers = ref(null)
+          watch(miles, (newValue, oldValue) => {
+            const newKilometers = newValue * 1.6
+            kilometers.value = newKilometers
           })
-          
-          // expose variables so they can be used in templates
-          return {
-            firstName, lastName, fullName
-          }
+          watch(kilometers, (newValue, oldValue) => {
+            const newMiles = newValue > 0 ? newValue / 1.6 : 0
+            miles.value = newMiles
+          })
+          return { miles, kilometers }
         }
       }
 
       const app = Vue
-      .createApp(InputName)
+      .createApp(InputDistance)
       .mount('#app')
     </script>
   </body>
