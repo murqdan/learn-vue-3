@@ -11,34 +11,40 @@
     <div id="app"></div>
 
     <script type="module">
-      const { ref } = Vue
+      const { reactive } = Vue
       
-      const Counter = {
-      props: {
-        initial: {
-          type: Number,
-          required: true
-        }
-      },
-      setup(props, context) {
-        const counter = ref(props.initial)
-        return { counter }
-      },
-      template: 
-      `<div>
-        <button @click="(counter > 0) && counter--"> - </button>
-          {{ counter }}
-        <button @click="counter++"> + </button>
-      </div>`
+      const dataBooks = [
+        { id:1, title:"Laravel" },
+        { id:2, title:"Vue" },
+        { id:3, title:"PHP" },
+        { id:4, title:"React" },
+        { id:5, title:"Express" },
+        { id:6, title:"Javascript" },
+        { id:7, title:"Node" }
+      ]
+
+      const ListBook = {
+        setup(props, context) {
+          const books = reactive(dataBooks)
+          return { books }
+        },
+        template: 
+        `<div class="page">
+          <ul class="list">
+            <li v-for="book in books" key="book.id">
+              {{ book.title }}
+            </li>
+          </ul>
+        </div>`
       }
 
       const app = Vue.createApp({
         components: {
-          'counter': Counter
+          'list-book': ListBook
         },
         template: 
         `<div>
-          <counter :initial="0" />
+          <list-book />
         </div>`
       }).mount('#app')
     </script>
