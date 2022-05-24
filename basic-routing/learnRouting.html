@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Vue.js</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="module">
+      // component declaration
+      const NotFoundComponent = {
+        template: '<p>Page not found</p>',
+      };
+      const HomeComponent = { template: '<p>Home page</p>' };
+      const AboutComponent = { template: '<p>About page</p>' };
+      // route mapping to components
+      const routes = {
+        '/': HomeComponent,
+        '/about': AboutComponent,
+      };
+      const SimpleRouter = {
+        data: () => ({
+          currentRoute: window.location.pathname,
+        }),
+        computed: {
+          activeComponent() {
+            // fetch component based on active route
+            return routes[this.currentRoute] || NotFoundComponent;
+          },
+        },
+        created() {
+          // add event listener to update currentRoute
+          // when there is a URL change
+          window.addEventListener('popstate', () => {
+            this.currentRoute = window.location.pathname;
+          });
+        },
+        template: 
+        `<div>
+            <component :is="activeComponent"></component>
+        </div>`,
+      };
+      
+      const app = Vue.createApp({
+        components: {
+          'simple-router': SimpleRouter,
+        },
+        template: 
+        `<div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/foo">Under Construction</a></li>
+            </ul>
+            <simple-router />
+        </div>`,
+      }).mount('#app');
+    </script>
+  </body>
+</html>
