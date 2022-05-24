@@ -12,54 +12,41 @@
     <div id="app"></div>
 
     <script type="module">
-      // component declaration
-      const NotFoundComponent = {
-        template: '<p>Page not found</p>',
-      };
-      const HomeComponent = { template: '<p>Home page</p>' };
-      const AboutComponent = { template: '<p>About page</p>' };
-      // route mapping to components
-      const routes = {
-        '/': HomeComponent,
-        '/about': AboutComponent,
-      };
-      const SimpleRouter = {
-        data: () => ({
-          currentRoute: window.location.pathname,
-        }),
-        computed: {
-          activeComponent() {
-            // fetch component based on active route
-            return routes[this.currentRoute] || NotFoundComponent;
-          },
-        },
-        created() {
-          // add event listener to update currentRoute
-          // when there is a URL change
-          window.addEventListener('popstate', () => {
-            this.currentRoute = window.location.pathname;
-          });
-        },
-        template: 
-        `<div>
-            <component :is="activeComponent"></component>
-        </div>`,
-      };
-      
+      // 1. Declare components
+      const Home = { template: '<div>Home</div>' };
+      const About = { template: '<div>About</div>' };
+      const NotFound = { template: '<div>NotFound</div>' }
+
+      // 2. Define routes, to map routes with components
+      const routes = [
+        { path: '/', component: Home },
+        { path: '/about', component: About },
+        { path: '/:pathMatch(.*)*', component: NotFound },
+      ];
+
+      // 3. Create router object
+      const router = VueRouter.createRouter({
+        history: VueRouter.createWebHashHistory(),
+        routes, // short form of `routes:routes`
+      });
+
+      // 4. Create a Vue app object that holds the router template
       const app = Vue.createApp({
-        components: {
-          'simple-router': SimpleRouter,
-        },
         template: 
         `<div>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/foo">Under Construction</a></li>
-            </ul>
-            <simple-router />
+          <ul>
+            <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/about">About</router-link></li>
+          </ul>
+          <router-view></router-view>
         </div>`,
-      }).mount('#app');
+      });
+
+      // register router on Vue app object
+      app.use(router);
+
+      // mount to #app
+      app.mount('#app');
     </script>
   </body>
 </html>
