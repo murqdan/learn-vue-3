@@ -24,6 +24,7 @@
       // 2. Define routes, to map routes with components
       const routes = [
         { path: '/', component: Home },
+        { path: '/home', redirect: '/' },
         { path: '/about', component: About },
         { path: '/list-book', component: ListBook },
         { path: '/book/:id', component: Book },
