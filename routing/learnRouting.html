@@ -26,7 +26,7 @@
       import ListBook from './ListBook.js';
       import Book from './Book.js';
 
-      // 1. Declare components
+      // 1. Declare components or variable
       const Home = { template: '<div>Home</div>' };
       const About = {
         template: '<div>About</div>',
@@ -36,6 +36,20 @@
         },
       };
       const NotFound = { template: '<div>NotFound</div>' };
+      const isLogin = Vue.ref(false);
+      const Login = {
+        setup(props, context) {
+          const router = VueRouter.useRouter();
+          const login = () => {
+            isLogin.value = true;
+            alert('login berhasil');
+            router.push('/');
+          };
+          // ekspose fungsi login karena akan digunakan pada template
+          return { login };
+        },
+        template: '<div><button @click="login()">Login</button></div>',
+      };
 
       // 2. Define routes, to map routes with components
       const routes = [
@@ -44,6 +58,7 @@
         { path: '/about', component: About },
         { path: '/list-book', component: ListBook },
         { path: '/book/:id(\\d+)', component: Book, props: true },
+        { path: '/login', component: Login },
         { path: '/:pathMatch(.*)*', component: NotFound },
       ];
 
@@ -55,12 +70,24 @@
 
       // 4. Create a Vue app object that holds the router template
       const app = Vue.createApp({
+        setup(props, context) {
+          const router = VueRouter.useRouter();
+          // deklarasi fungsi logout
+          const logout = () => {
+            isLogin.value = false;
+            alert('logout berhasil');
+            router.push('/');
+          };
+          return { isLogin, logout };
+        },
         template: 
         `<div>
           <ul>
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/about">About</router-link></li>
             <li><router-link to="/list-book">List Book</router-link></li>
+            <li v-if="!isLogin"><router-link to="/login">Login</router-link></li>
+            <li v-if="isLogin" @click="logout()">Logout</li>
           </ul>
           <router-view v-slot="{ Component }">
             <transition name="fade">
