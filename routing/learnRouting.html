@@ -14,6 +14,7 @@
     <script type="module">
       // 0 Import Komponen
       import ListBook from './ListBook.js';
+      import Book from './Book.js'
 
       // 1. Declare components
       const Home = { template: '<div>Home</div>' };
@@ -25,6 +26,7 @@
         { path: '/', component: Home },
         { path: '/about', component: About },
         { path: '/list-book', component: ListBook },
+        { path: '/book/:id', component: Book },
         { path: '/:pathMatch(.*)*', component: NotFound },
       ];
 
