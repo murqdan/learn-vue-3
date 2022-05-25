@@ -12,15 +12,19 @@
     <div id="app"></div>
 
     <script type="module">
+      // 0 Import Komponen
+      import ListBook from './ListBook.js';
+
       // 1. Declare components
       const Home = { template: '<div>Home</div>' };
       const About = { template: '<div>About</div>' };
-      const NotFound = { template: '<div>NotFound</div>' }
+      const NotFound = { template: '<div>NotFound</div>' };
 
       // 2. Define routes, to map routes with components
       const routes = [
         { path: '/', component: Home },
         { path: '/about', component: About },
+        { path: '/list-book', component: ListBook },
         { path: '/:pathMatch(.*)*', component: NotFound },
       ];
 
@@ -32,11 +36,12 @@
 
       // 4. Create a Vue app object that holds the router template
       const app = Vue.createApp({
-        template: 
+        template:
         `<div>
           <ul>
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/about">About</router-link></li>
+            <li><router-link to="/list-book">List Book</router-link></li>
           </ul>
           <router-view></router-view>
         </div>`,
