@@ -7,7 +7,7 @@ const Book = {
         const { id } = route.params // get params id
 
         const fetchBook = (id) => {
-            fetch('http://127.0.0.1:5500/books.json')
+            fetch('http://127.0.0.1:5500/routing/books.json')
             .then(response => {
                 return response.json()
             })
