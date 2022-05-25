@@ -27,7 +27,7 @@
         { path: '/home', redirect: '/' },
         { path: '/about', component: About },
         { path: '/list-book', component: ListBook },
-        { path: '/book/:id', component: Book },
+        { path: '/book/:id(\\d+)', component: Book, props: true },
         { path: '/:pathMatch(.*)*', component: NotFound },
       ];
 

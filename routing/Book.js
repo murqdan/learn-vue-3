@@ -1,4 +1,5 @@
 const Book = {
+    props: ['id'],
     setup (props, context) {
         const book = Vue.reactive({})
         const route = VueRouter.useRoute()
