@@ -2,6 +2,7 @@ const Book = {
     setup (props, context) {
         const book = Vue.reactive({})
         const route = VueRouter.useRoute()
+        const router = VueRouter.useRouter()
         const { id } = route.params // get params id
 
         const fetchBook = (id) => {
@@ -11,7 +12,12 @@ const Book = {
             })
             .then(data => {
                 const currentBook = data.find(book => book.id == id);
-                if (currentBook) Object.assign(book, { ...currentBook })
+                if (currentBook) {
+                    Object.assign(book, { ...currentBook })
+                } else {
+                    alert("Book not found")
+                    router.push('/list-book')
+                }
             })
         }
 
