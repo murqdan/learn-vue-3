@@ -45,7 +45,6 @@
             alert('login berhasil');
             router.push('/');
           };
-          // ekspose fungsi login karena akan digunakan pada template
           return { login };
         },
         template: '<div><button @click="login()">Login</button></div>',
@@ -56,10 +55,10 @@
         { path: '/', component: Home },
         { path: '/home', redirect: '/' },
         { path: '/about', component: About },
-        { path: '/list-book', component: ListBook },
-        { path: '/book/:id(\\d+)', component: Book, props: true },
+        { path: '/list-book', component: ListBook, meta: { auth: true } },
+        { path: '/book/:id(\\d+)', component: Book, meta: { auth: true } },
         { path: '/login', component: Login },
-        { path: '/:pathMatch(.*)*', component: NotFound },
+        { path: '/:catchAll(.*)', component: NotFound },
       ];
 
       // 3. Create router object
@@ -67,21 +66,31 @@
         history: VueRouter.createWebHistory(),
         routes, // short form of `routes:routes`
       });
+      router.beforeEach((to, from) => {
+        const { auth } = to.meta;
+        // if destination routing is protected
+        if (auth) {
+          // if the user is not logged in
+          if (!isLogin.value) {
+            alert('You are not allowed!');
+            // redirect to route /login
+            return '/login';
+          }
+        }
+      });
 
       // 4. Create a Vue app object that holds the router template
       const app = Vue.createApp({
         setup(props, context) {
           const router = VueRouter.useRouter();
-          // deklarasi fungsi logout
           const logout = () => {
             isLogin.value = false;
-            alert('logout berhasil');
+            alert('logout succeed');
             router.push('/');
           };
           return { isLogin, logout };
         },
-        template: 
-        `<div>
+        template: `<div>
           <ul>
             <li><router-link to="/">Home</router-link></li>
             <li><router-link to="/about">About</router-link></li>
