@@ -7,79 +7,142 @@
     <title>Learn Vue.js</title>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/vuex@next"></script>
+    <script src="https://unpkg.com/vue-router@next"></script>
   </head>
   <body>
     <div id="app"></div>
 
     <script type="module">
-      // create a store
+      const Home = { template: '<div>Home</div>' };
+
+      const Profile = {
+        setup() {
+          const store = Vuex.useStore();
+          const user = Vue.computed(() => store.getters.getUser);
+          return { user };
+        },
+        template: 
+        `<div>
+          <h2>Profile</h2>
+          {{ user }}
+        </div>`,
+      };
+
+      const Login = {
+        setup(props, context) {
+          const dataLogin = Vue.reactive({
+            username: '',
+            password: '',
+          });
+          const store = Vuex.useStore();
+          const router = VueRouter.useRouter();
+          const login = () => {
+            const { username, password } = dataLogin;
+            if (username === 'admin' && password === '123456') {
+              store.dispatch('login', { username, password });
+              alert('login successful!');
+              router.push('/');
+            } else {
+              alert('wrong username or password!');
+            }
+          };
+          return { dataLogin, login };
+        },
+        template: 
+        `<div>
+          <h2>Login</h2>
+          <form @submit.prevent="login">
+          <div> username: <input v-model="dataLogin.username"/></div>
+          <div> password: <input v-model="dataLogin.password"/></div>
+          <button type="submit">Login</button>
+          </form>
+        </div>`,
+      };
+
+      const routes = [
+        { path: '/', component: Home },
+        { path: '/profile', component: Profile, meta: { auth: true } },
+        { path: '/login', component: Login },
+      ];
+
+      const router = VueRouter.createRouter({
+        history: VueRouter.createWebHistory(),
+        routes,
+      });
+
+      router.beforeEach((to, from) => {
+        const { auth } = to.meta;
+        const isLogin = store.getters.isLogin;
+        // if auth is true
+        if (auth) {
+          // if state isLogin is false
+          if (!isLogin) {
+            // redirect to route /login
+            return '/login';
+          }
+        }
+      });
+
       const store = Vuex.createStore({
         strict: true,
         state() {
           return {
-            count: 0,
-            books: [],
+            login: false,
+            user: {},
           };
         },
-        actions: {
-          increment(context, n) {
-            context.commit('increment', n);
-          },
-          // add action to get data books
-          async getBooks (context, payload) {
-            const response = await fetch(payload)
-            const data = await response.json()
-            context.commit('setBooks', data)
-          }
-        },
         mutations: {
-          increment(state, n) {
-            state.count += n;
-          },
-          setBooks(state, books){ // add setter for state books
-            state.books = books
-          }
+          setLogin: (state, login) => (state.login = login),
+          setUser: (state, user) => (state.user = user),
         },
         getters: {
-          publishBooks(state) {
-            return state.books.filter((book) => book.publish);
+          isLogin: (state) => state.login,
+          getUser: (state) => state.user,
+        },
+        actions: {
+          login(context, payload) {
+            context.commit('setLogin', true);
+            context.commit('setUser', payload);
           },
-          publishBooksCount(state, getters) {
-            return getters.publishBooks.length;
+          logout(context) {
+            context.commit('setLogin', false);
+            context.commit('setUser', {});
           },
         },
       });
 
       const app = Vue.createApp({
-        setup() {
-          // call
-          const count = Vue.computed(() => store.state.count);
-          const publishBooks = Vue.computed(() => store.getters.publishBooks);
-          const publishBooksCount = Vue.computed(() => store.getters.publishBooksCount);
-          const books = Vue.computed(() => store.state.books)
-
-          // useStore to use store
+        setup(props, context) {
           const store = Vuex.useStore();
-          store.dispatch('getBooks', 'http://127.0.0.1:5500/stateManagement/books.json')
-
-          // expose store so the template can read it
-          return { store, count, publishBooks, publishBooksCount, books };
+          const router = VueRouter.useRouter();
+          const isLogin = Vue.computed(() => store.getters.isLogin);
+          const logout = () => {
+            store.dispatch('logout');
+            alert('logout successful!');
+            router.push('/');
+          };
+          return { isLogin, logout };
         },
-        template:
+        template: 
         `<div>
-          {{ count }}
-          <button @click="store.dispatch('increment', 10)"> + </button>
-          <br><br>
-          {{ publishBooks }}
-          <br><br>
-          {{ publishBooksCount }}
           <ul>
-            <li v-for="book in books">{{book.title}}</li>
+            <li><router-link to="/">Home</router-link></li>
+            <li v-if="isLogin"><router-link to="/profile">Profile</router-link></li>
+            <li v-if="!isLogin"><router-link to="/login">Login</router-link></li>
+            <li v-if="isLogin" @click="logout()">Logout</li>
           </ul>
+          <router-view v-slot="{ Component }">
+            <transition>
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </div>`,
       });
 
-      // install store as plugins
+      // register router
+      app.use(router);
+
+      // register store
       app.use(store);
 
       app.mount('#app');
