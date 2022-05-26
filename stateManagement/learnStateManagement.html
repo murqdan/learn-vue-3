@@ -12,31 +12,19 @@
     <div id="app"></div>
 
     <script type="module">
-      // import two components counter
-      import CounterDisplay from './CounterDisplay.js';
-      import CounterControl from './CounterControl.js';
-      
-      // import global state (store)
-      import Store from './Store.js';
-      
-      Vue.createApp({
-        setup() {
-          // provide store so that it can be injected into child components
-          Vue.provide('Store', Store);
+      // create a store
+      const store = Vuex.createStore({
+        state() {
+          return {
+            count: 0,
+          };
         },
-        components: {
-          'counter-display': CounterDisplay,
-          'counter-control': CounterControl,
+        mutations: {
+          increment(state) {
+            state.count++;
+          },
         },
-        template: 
-        `<div>
-          <counter-display />
-          <counter-control />
-          <hr />
-          <counter-display />
-          <counter-control />
-        </div>`,
-      }).mount('#app');
+      });
     </script>
   </body>
 </html>
