@@ -26,8 +26,8 @@
           };
         },
         mutations: {
-          increment(state) {
-            state.count++;
+          increment(state, n) {
+            state.count += n;
           },
         },
         getters: {
@@ -56,7 +56,7 @@
         template:
         `<div>
           {{ count }}
-          <button @click="store.commit('increment')"> + </button>
+          <button @click="store.commit('increment', 10)"> + </button>
           <br><br>
           {{ publishBooks }}
           <br><br>
