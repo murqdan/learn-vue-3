@@ -17,6 +17,12 @@
         state() {
           return {
             count: 0,
+            books: [
+              { id: 1, title: 'Vue', publish: true },
+              { id: 2, title: 'Laravel', publish: false },
+              { id: 3, title: 'React', publish: false },
+              { id: 4, title: 'Express', publish: true },
+            ],
           };
         },
         mutations: {
@@ -24,22 +30,37 @@
             state.count++;
           },
         },
+        getters: {
+          publishBooks(state) {
+            return state.books.filter((book) => book.publish);
+          },
+          publishBooksCount(state, getters) {
+            return getters.publishBooks.length;
+          },
+        },
       });
 
       const app = Vue.createApp({
         setup() {
-          const count = Vue.computed(() => store.state.count)
+          // call
+          const count = Vue.computed(() => store.state.count);
+          const publishBooks = Vue.computed(() => store.getters.publishBooks);
+          const publishBooksCount = Vue.computed(() => store.getters.publishBooksCount);
 
           // useStore to use store
           const store = Vuex.useStore();
 
           // expose store so the template can read it
-          return { store, count };
+          return { store, count, publishBooks, publishBooksCount };
         },
-        template: 
+        template:
         `<div>
           {{ count }}
           <button @click="store.commit('increment')"> + </button>
+          <br><br>
+          {{ publishBooks }}
+          <br><br>
+          {{ publishBooksCount }}
         </div>`,
       });
 
