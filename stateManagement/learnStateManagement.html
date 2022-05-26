@@ -25,6 +25,26 @@
           },
         },
       });
+
+      const app = Vue.createApp({
+        setup() {
+          // useStore to use store
+          const store = Vuex.useStore();
+
+          // expose store so the template can read it
+          return { store };
+        },
+        template: 
+        `<div>
+          {{ store.state.count }}
+          <button @click="store.commit('increment')"> + </button>
+        </div>`,
+      });
+
+      // install store as plugins
+      app.use(store);
+
+      app.mount('#app');
     </script>
   </body>
 </html>
