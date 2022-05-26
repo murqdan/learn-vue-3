@@ -18,23 +18,27 @@
         state() {
           return {
             count: 0,
-            books: [
-              { id: 1, title: 'Vue', publish: true },
-              { id: 2, title: 'Laravel', publish: false },
-              { id: 3, title: 'React', publish: false },
-              { id: 4, title: 'Express', publish: true },
-            ],
+            books: [],
           };
         },
         actions: {
           increment(context, n) {
             context.commit('increment', n);
           },
+          // add action to get data books
+          async getBooks (context, payload) {
+            const response = await fetch(payload)
+            const data = await response.json()
+            context.commit('setBooks', data)
+          }
         },
         mutations: {
           increment(state, n) {
             state.count += n;
           },
+          setBooks(state, books){ // add setter for state books
+            state.books = books
+          }
         },
         getters: {
           publishBooks(state) {
@@ -52,12 +56,14 @@
           const count = Vue.computed(() => store.state.count);
           const publishBooks = Vue.computed(() => store.getters.publishBooks);
           const publishBooksCount = Vue.computed(() => store.getters.publishBooksCount);
+          const books = Vue.computed(() => store.state.books)
 
           // useStore to use store
           const store = Vuex.useStore();
+          store.dispatch('getBooks', 'http://127.0.0.1:5500/stateManagement/books.json')
 
           // expose store so the template can read it
-          return { store, count, publishBooks, publishBooksCount };
+          return { store, count, publishBooks, publishBooksCount, books };
         },
         template:
         `<div>
@@ -67,6 +73,9 @@
           {{ publishBooks }}
           <br><br>
           {{ publishBooksCount }}
+          <ul>
+            <li v-for="book in books">{{book.title}}</li>
+          </ul>
         </div>`,
       });
 
