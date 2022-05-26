@@ -28,15 +28,17 @@
 
       const app = Vue.createApp({
         setup() {
+          const count = Vue.computed(() => store.state.count)
+
           // useStore to use store
           const store = Vuex.useStore();
 
           // expose store so the template can read it
-          return { store };
+          return { store, count };
         },
         template: 
         `<div>
-          {{ store.state.count }}
+          {{ count }}
           <button @click="store.commit('increment')"> + </button>
         </div>`,
       });
